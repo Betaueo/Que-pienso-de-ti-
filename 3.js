@@ -8,7 +8,11 @@ const loveMessages = [
     "Amo cómo me apoyas en todo",
     "Tu inteligencia me asombra",
     "Me encanta cómo me haces reír",
-    "Amo cada momento contigo"
+    "Amo cada momento contigo", 
+"Tu sentido del humor me hace reír más de lo que debería",
+"Me encanta cómo tus abrazos siempre parecen ser el tamaño perfecto"  
+
+
 ];
 
 const today = new Date().toISOString().split('T')[0]; // Fecha actual en formato YYYY-MM-DD
@@ -29,7 +33,7 @@ function displayCurrentMessage() {
 
 function nextMessage() {
     // No se permite avanzar a mensajes futuros; solo se muestra el mensaje del día.
-    alert("Solo puedes ver un mensaje por día. ¡Vuelve mañana para ver el próximo!");
+    alert("Solo puedes ver un mensaje por día. ¡Vuelve mañana para ver el próximo MI AMOR 😘!");
 }
 
 function updateThemeColor() {
