@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Componentes Neumáticos y Electroneumáticos - Tabla Técnica</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateX(-20px) translateY(-20px); }
+            100% { transform: translateX(20px) translateY(20px); }
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        th {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            padding: 20px 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 1.1em;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        td {
+            padding: 20px 15px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+            transition: all 0.3s ease;
+        }
+
+        tr:hover td {
+            background: linear-gradient(90deg, rgba(52, 152, 219, 0.05) 0%, rgba(155, 89, 182, 0.05) 100%);
+            transform: scale(1.01);
+        }
+
+        .component-name {
+            font-weight: 700;
+            color: #2c3e50;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+
+        .symbol-container {
+            text-align: center;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin: 5px 0;
+        }
+
+        .symbol {
+            font-size: 2em;
+            color: #2980b9;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .symbol-text {
+            font-size: 0.9em;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+
+        .definition {
+            line-height: 1.6;
+            color: #34495e;
+            text-align: justify;
+        }
+
+        .characteristics {
+            list-style: none;
+            padding: 0;
+        }
+
+        .characteristics li {
+            padding: 8px 0;
+            padding-left: 20px;
+            position: relative;
+            color: #2c3e50;
+            line-height: 1.5;
+        }
+
+        .characteristics li::before {
+            content: '🔧';
+            position: absolute;
+            left: 0;
+            top: 8px;
+        }
+
+        .pressure-range {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+
+        .flow-rate {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+
+        .temp-range {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 20px 30px;
+            text-align: center;
+        }
+
+        .normative-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #9b59b6, #8e44ad);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin: 2px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            table {
+                font-size: 0.9em;
+            }
+            
+            th, td {
+                padding: 15px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔧 Componentes Neumáticos y Electroneumáticos</h1>
+            <p>Símbolos Normalizados y Especificaciones Técnicas según ISO 1219 y DIN ISO 5599</p>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 20%;">Componente</th>
+                        <th style="width: 20%;">Símbolo Normalizado</th>
+                        <th style="width: 35%;">Definición Técnica</th>
+                        <th style="width: 25%;">Características Principales</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="component-name">Compresor</div>
+                            <span class="normative-badge">ISO 1219-1</span>
+                            <span class="normative-badge">DIN 24312</span>
+                        </td>
+                        <td>
+                            <div class="symbol-container">
+                                <div class="symbol"><img src="COMPRESOR.png" alt=""></div>
+                                <div class="symbol-text">Círculo con flecha curvada y entrada de aire</div>
+                            </div>
+                        </td>
+                        <td class="definition">
+                            Máquina térmica que incrementa la presión de un gas mediante la reducción de su volumen. En sistemas neumáticos, comprime aire atmosférico hasta presiones de trabajo específicas, convirtiéndolo en energía neumática utilizable para el accionamiento de actuadores y válvulas.
+                            <li><span class="pressure-range">TIPO DE ACCIONAMIENTO</span> Motor eléctrico (accionamiento mecánico indirecto) </li>
+                        </td>
+                        <td>
+<ul class="characteristics">
+                                <li><span class="pressure-range">6-10 bar</span> presión típica</li>
+                                <li><span class="flow-rate">50-500 L/min</span> caudal</li>
+                                <li><span class="temp-range">-10°C a +60°C</span></li>
+                                <li>Tipos: pistón, tornillo, centrífugo</li>
+                                <li>Eficiencia energética variable</li>
+                                <li>Requiere mantenimiento periódico</li>
+                            </ul>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="component-name">Unidad de Mantenimiento (FRL)</div>
+                            <span class="normative-badge">ISO 1219-2</span>
+                            <span class="normative-badge">DIN ISO 5599</span>
+                        </td>
+                        <td>
+                            <div class="symbol-container">
+                                <div class="symbol"><img src="UNIDAD DE MANTEMIENTO.png" alt=""></div>
+                                <div class="symbol-text">F: Filtro, R: Regulador, L: Lubricador</div>
+                            </div>
+                        </td>
+                        <td class="definition">
+                            Conjunto integrado de tres componentes esenciales: filtro (elimina partículas sólidas y humedad), regulador de presión (mantiene presión constante downstream) y lubricador (añade aceite nebulizado). Garantiza calidad del aire comprimido y protección de componentes neumáticos.
+                            <li><span class="pressure-range">TIPO DE ACCIONAMIENTO</span> No requiere accionamiento propio. Es pasiva: el aire fluye y es filtrado, regulado y lubricado. </li>
+                        </td>
+                        <td>
+                            <ul class="characteristics">
+                                <li><span class="pressure-range">0.5-16 bar</span> rango operativo</li>
+                                <li>Filtrado: 5-40 micrones</li>
+                                <li>Precisión regulación: ±2%</li>
+                                <li>Capacidad depósito: 25-250 ml</li>
+                                <li>Conexiones: G1/8" a G1"</li>
+                                <li>Montaje modular estándar</li>
+                            </ul>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="component-name">Válvula 2/2 (2 vías, 2 posiciones)</div>
+                            <span class="normative-badge">ISO 1219-1</span>
+                            <span class="normative-badge">DIN ISO 5599</span>
+                        </td>
+                        <td>
+                            <div class="symbol-container">
+                                <div class="symbol"><img src="2.2.png" alt=""></div>
+                                <div class="symbol-text">Dos cuadrados con conexiones P y A</div>
+                            </div>
+                        </td>
+                        <td class="definition">
+                            Válvula direccional con dos conexiones (entrada P y salida A) y dos posiciones de conmutación (abierta/cerrada). Controla el paso de flujo neumático en una sola dirección, funcionando como interruptor neumático para activar/desactivar actuadores o circuitos.
+                            <li><span class="pressure-range">TIPO DE ACCIONAMIENTO</span> Manual, neumático, eléctrico o mecánico (por botón, bobina, rodillo, presión, etc.) </li>
+                        </td>
+                        <td>
+                            <ul class="characteristics">
+                                <li><span class="pressure-range">2-10 bar</span> presión trabajo</li>
+                                <li><span class="flow-rate">100-2000 L/min</span> caudal</li>
+                                <li>Accionamiento: manual, neumático, eléctrico</li>
+                                <li>Retorno por muelle o pilotaje</li>
+                                <li>Conexiones: M5 a G1/2"</li>
+                                <li>Tiempo respuesta: 5-50 ms</li>
+                            </ul>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="component-name">Válvula 3/2 (3 vías, 2 posiciones)</div>
+                            <span class="normative-badge">ISO 1219-1</span>
+                            <span class="normative-badge">DIN ISO 5599</span>
+                        </td>
+                        <td>
+                            <div class="symbol-container">
+                                <div class="symbol"><img src="3.2.png" alt=""></div>
+                                <div class="symbol-text">Dos cuadrados con conexiones P, A y R</div>
+                            </div>
+                        </td>
+                        <td class="definition">
+                            Válvula direccional con tres conexiones (presión P, trabajo A, escape R) y dos posiciones. En posición activada conecta P con A; en reposo conecta A con R (escape). Ideal para control de cilindros de simple efecto y señalización neumática.
+                            <li><span class="pressure-range">TIPO DE ACCIONAMIENTO</span> 	Manual, neumático, eléctrico o mecánico (igual que la 2/2) </li>
+                        </td>
+                        <td>
+                            <ul class="characteristics">
+                                <li><span class="pressure-range">2-16 bar</span> presión trabajo</li>
+                                <li><span class="flow-rate">150-3000 L/min</span> caudal</li>
+                                <li>Configuración NC (normalmente cerrada) o NA</li>
+                                <li>Accionamiento múltiple disponible</li>
+                                <li>Montaje en base o individual</li>
+                                <li>Vida útil: 10-50 millones ciclos</li>
+                            </ul>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="component-name">Válvula 4/2 (4 vías, 2 posiciones)</div>
+                            <span class="normative-badge">ISO 1219-1</span>
+                            <span class="normative-badge">DIN ISO 5599</span>
+                        </td>
+                        <td>
+                            <div class="symbol-container">
+                                <div class="symbol"><img src="4.2.png" alt=""></div>
+                                <div class="symbol-text">Dos cuadrados con conexiones P, A, B y R</div>
+                            </div>
+                        </td>
+                        <td class="definition">
+                            Válvula direccional con cuatro conexiones (presión P, trabajos A y B, escape R) y dos posiciones de conmutación. Controla cilindros de doble efecto conectando alternativamente la presión a cada cámara mientras la opuesta se ventila al escape.
+                            <li><span class="pressure-range">TIPO DE ACCIONAMIENTO</span> Eléctrico o neumático (más comúnmente con solenoide) </li>
+                        </td>
+                        <td>
+                            <ul class="characteristics">
+                                <li><span class="pressure-range">2-16 bar</span> presión trabajo</li>
+                                <li><span class="flow-rate">200-4000 L/min</span> caudal</li>
+                                <li>Control bidireccional de actuadores</li>
+                                <li>Solenoide simple con retorno muelle</li>
+                                <li>Juntas NBR o FKM</li>
+                                <li>Conexiones múltiples disponibles</li>
+                            </ul>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="component-name">Válvula 5/2 (5 vías, 2 posiciones)</div>
+                            <span class="normative-badge">ISO 1219-1</span>
+                            <span class="normative-badge">DIN ISO 5599</span>
+                        </td>
+                        <td>
+                            <div class="symbol-container">
+                                <div class="symbol"><img src="5.2.png" alt=""></div>
+                                <div class="symbol-text">Dos cuadrados con P, A, B, R1, R2</div>
+                            </div>
+                        </td>
+                        <td class="definition">
+                            Válvula direccional con cinco conexiones (presión P, trabajos A y B, escapes R1 y R2) y dos posiciones. Ofrece escape independiente para cada salida de trabajo, proporcionando mayor control y velocidad en actuadores de doble efecto mediante regulación diferencial.
+                            <li><span class="pressure-range">TIPO DE ACCIONAMIENTO</span> Eléctrico con solenoide o neumático indirecto </li>
+                        </td>
+                        <td>
+                            <ul class="characteristics">
+                                <li><span class="pressure-range">2-16 bar</span> presión trabajo</li>
+                                <li><span class="flow-rate">300-5000 L/min</span> caudal</li>
+                                <li>Escapes independientes A→R1, B→R2</li>
+                                <li>Mayor velocidad de actuadores</li>
+                                <li>Accionamiento neumático/eléctrico</li>
+                                <li>Interfaz estándar NAMUR</li>
+                            </ul>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="component-name">Válvula 4/3 (4 vías, 3 posiciones)</div>
+                            <span class="normative-badge">ISO 1219-1</span>
+                            <span class="normativa-badge">DIN ISO 5599</span>
+                        </td>
+                        <td>
+                            <div class="symbol-container">
+                                <div class="symbol"><img src="4.3.png" alt=""></div>
+                                <div class="symbol-text">Tres cuadrados, posición central variable</div>
+                            </div>
+                        </td>
+                        <td class="definition">
+                            Válvula direccional con cuatro conexiones y tres posiciones de conmutación. La posición central puede ser: cerrada (bloqueo), presión común (flotante), o escape común (despresurización). Permite control avanzado con parada intermedia de actuadores.
+                            <li><span class="pressure-range">TIPO DE ACCIONAMIENTO</span> Doble solenoide eléctrico o doble accionamiento neumático </li>
+                        </td>
+                        <td>
+                            <ul class="characteristics">
+                                <li><span class="pressure-range">2-16 bar</span> presión trabajo</li>
+                                <li><span class="flow-rate">200-4000 L/min</span> caudal</li>
+                                <li>Posición central: 0, P, R configurable</li>
+                                <li>Control de parada intermedia</li>
+                                <li>Accionamiento bilateral</li>
+                                <li>Centrado por resortes</li>
+                            </ul>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="component-name">Válvula 5/3 (5 vías, 3 posiciones)</div>
+                            <span class="normative-badge">ISO 1219-1</span>
+                            <span class="normative-badge">DIN ISO 5599</span>
+                        </td>
+                        <td>
+                            <div class="symbol-container">
+                                <div class="symbol"><img src="valvula 5 3.png" alt=""></div>
+                                <div class="symbol-text">Tres cuadrados con 5 conexiones</div>
+                            </div>
+                        </td>
+                        <td class="definition">
+                            Válvula direccional con cinco conexiones y tres posiciones de conmutación. Combina las ventajas de escapes independientes con control de posición central, ofreciendo máxima versatilidad para aplicaciones complejas de control de movimiento y posicionamiento.
+                            <li><span class="pressure-range">TIPO DE ACCIONAMIENTO</span> Manual (regulación por tornillo o perilla) </li>
+                        </td>
+                        <td>
+                            <ul class="characteristics">
+                                <li><span class="pressure-range">2-16 bar</span> presión trabajo</li>
+                                <li><span class="flow-rate">400-6000 L/min</span> caudal</li>
+                                <li>Escapes independientes en posición central</li>
+                                <li>Control preciso de velocidad</li>
+                                <li>Aplicaciones servo-neumáticas</li>
+                                <li>Montaje múltiple disponible</li>
+                            </ul>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="component-name">Válvula de Estrangulamiento</div>
+                            <span class="normative-badge">ISO 1219-2</span>
+                            <span class="normative-badge">DIN 24342</span>
+                        </td>
+                        <td>
+                            <div class="symbol-container">
+                                <div class="symbol"><img src="valvula de estran.png" alt=""></div>
+                                <div class="symbol-text">Rombo con orificio variable y flecha</div>
+                            </div>
+                        </td>
+                        <td class="definition">
+                            Válvula reguladora de caudal que restringe el paso de aire mediante orificio variable, controlando la velocidad de actuadores neumáticos. Puede ser unidireccional (con válvula antirretorno) o bidireccional, permitiendo regulación independiente en ambos sentidos del movimiento.
+                            <li><span class="pressure-range">TIPO DE ACCIONAMIENTO</span> Automática (pasiva) permite paso en un sentido por diferencia de presión </li>
+                        </td>
+                        <td>
+                            <ul class="characteristics">
+                                <li><span class="pressure-range">1-16 bar</span> presión trabajo</li>
+                                <li><span class="flow-rate">10-1000 L/min</span> rango regulación</li>
+                                <li>Regulación continua 0-100%</li>
+                                <li>Tipos: unidireccional/bidireccional</li>
+                                <li>Precisión: ±5% caudal nominal</li>
+                                <li>Conexiones: M5 a G1/2"</li>
+                            </ul>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="component-name">Válvula de Retención</div>
+                            <span class="normative-badge">ISO 1219-2</span>
+                            <span class="normative-badge">DIN 3230</span>
+                        </td>
+                        <td>
+                            <div class="symbol-container">
+                                <div class="symbol"><img src="valvula de reten.png" alt=""></div>
+                                <div class="symbol-text">Triángulo con línea perpendicular</div>
+                            </div>
+                        </td>
+                        <td class="definition">
+                            Válvula unidireccional que permite el flujo de aire en un solo sentido, bloqueando automáticamente el flujo inverso mediante elemento móvil (bola, disco o cono). Esencial para mantener presión en circuitos, evitar retornos indeseados y proteger componentes sensibles.
+                            <li><span class="pressure-range">TIPO DE ACCIONAMIENTO</span> Automática o manual de emergencia (según diseño) </li>
+                        </td>
+                        <td>
+                            <ul class="characteristics">
+                                <li><span class="pressure-range">0.02-16 bar</span> presión apertura</li>
+                                <li><span class="flow-rate">50-3000 L/min</span> caudal máximo</li>
+                                <li>Pérdida de carga: 0.02-0.1 bar</li>
+                                <li>Tipos: muelle, gravedad, pilotada</li>
+                                <li>Estanqueidad: clase A según ISO</li>
+                                <li>Materiales: latón, acero inox, polímero</li>
+                            </ul>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="component-name">Válvula de Seguridad</div>
+                            <span class="normative-badge">ISO 4126</span>
+                            <span class="normative-badge">DIN 3320</span>
+                        </td>
+                        <td>
+                            <div class="symbol-container">
+                                <div class="symbol"><img src="valvula de seuguridad.png" alt=""></div>
+                                <div class="symbol-text">Símbolo con resorte y escape dirigido</div>
+                            </div>
+                        </td>
+                        <td class="definition">
+                            Válvula de alivio automática que libera presión excesiva del sistema cuando supera el valor de tarado preestablecido, protegiendo componentes y personal. Se abre proporcionalmente al exceso de presión y se cierra automáticamente al normalizarse las condiciones operativas.
+                            <li><span class="pressure-range">TIPO DE ACCIONAMIENTO</span> 	Automática o manual de emergencia (según diseño) </li>
+                        </td>
+                        <td>
+                            <ul class="characteristics">
+                                <li><span class="pressure-range">1-25 bar</span> rango tarado</li>
+                                <li><span class="flow-rate">100-10000 L/min</span> capacidad descarga</li>
+                                <li>Precisión tarado: ±3%</li>
+                                <li>Sobrepresión apertura: 10-15%</li>
+                                <li>Certificación PED si aplica</li>
+                                <li>Ajuste sellado o accesible</li>
+                            </ul>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="component-name">Mangueras Neumáticas</div>
+                            <span class="normative-badge">ISO 4649</span>
+                            <span class="normative-badge">DIN 73379</span>
+                        </td>
+                        <td>
+                            <div class="symbol-container">
+                                <div class="symbol"><img src="maguera.png" alt=""></div>
+                                <div class="symbol-text">Línea continua con conexión</div>
+                            </div>
+                        </td>
+                        <td class="definition">
+                            Conductos flexibles de material polimérico (PU, PA, PE) reforzados con fibras textiles o metálicas, diseñados para transportar aire comprimido entre componentes neumáticos. Ofrecen flexibilidad, resistencia a presión y compatibilidad química con aceites neumáticos.
+                            <li><span class="pressure-range">TIPO DE ACCIONAMIENTO</span> No aplica, son conductos pasivos </li>
+                        </td>
+                        <td>
+                            <ul class="characteristics">
+                                <li><span class="pressure-range">10-40 bar</span> presión trabajo</li>
+                                <li>Diámetros: 4mm a 25mm (exterior)</li>
+                                <li><span class="temp-range">-40°C a +80°C</span></li>
+                                <li>Radio curvatura: 5-15 x diámetro</li>
+                                <li>Materiales: PU, PA6, PA12</li>
+                                <li>Colores estándar: azul, negro, transparente</li>
+                            </ul>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="component-name">Conectores y Acoples</div>
+                            <span class="normative-badge">ISO 12132</span>
+                            <span class="normative-badge">DIN EN 61076</span>
+                        </td>
+                        <td>
+                            <div class="symbol-container">
+                                <div class="symbol"> <img src="Conectores y Acoples.png" alt=""></div>
+                                <div class="symbol-text">Conexión rápida con retención</div>
+                            </div>
+                        </td>
+                        <td class="definition">
+                            Elementos de unión rápida que permiten conexión y desconexión de tuberías neumáticas sin herramientas. Incluyen acoples instantáneos con sistema de retención automática por mordazas o collarín, garantizando estanqueidad y resistencia a tracción en instalaciones dinámicas.
+                            <li><span class="pressure-range">TIPO DE ACCIONAMIENTO</span> Manual, acople por presión, rosca o conexión rápida </li>
+                        </td>
+                        <td>
+                            <ul class="characteristics">
+                                <li><span class="pressure-range">0-16 bar</span> presión trabajo</li>
+                                <li>Conexiones: push-in, push-pull, rosca</li>
+                                <li>Materiales: latón niquelado, inox, polímero</li>
+                                <li>Juntas: NBR, EPDM, FKM</li>
+                                <li>Fuerza extracción: 60-300 N</li>
+                                <li>Tipos: rectos, codos, T, Y</li>
+                            </ul>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="component-name">Actuadores Lineales (Cilindros)</div>
+                            <span class="normative-badge">ISO 6432</span>
+                            <span class="normative-badge">DIN ISO 15552</span>
+                        </td>
+                        <td>
+                            <div class="symbol-container">
+                                <div class="symbol"> <img src="actuadores lineales.png" alt=""></div>
+                                <div class="symbol-text">Rectángulo con vástago extendido</div>
+                            </div>
+                        </td>
+                        <td class="definition">
+                            Actuadores que convierten energía neumática en movimiento lineal mediante pistón deslizante en camisa cilíndrica. Disponibles en configuraciones de simple efecto (retorno por muelle) o doble efecto (neumático bidireccional), con diversas opciones de montaje y amortiguación.
+                            <li><span class="pressure-range">TIPO DE ACCIONAMIENTO</span> Neumático directo, se activan con aire comprimido </li>
+                        </td>
+                        <td>
+                            <ul class="characteristics">
+                                <li><span class="pressure-range">2-10 bar</span> presión trabajo</li>
+                                <li>Diámetros: 12mm a 320mm</li>
+                                <li>Carreras: 10mm a 2000mm</li>
+                                <li>Velocidades: 50-500 mm/s</li>
+                                <li>Fuerzas: 5N a 50000N</li>
+                                <li>Detección posición: magnética, inductiva</li>
+                            </ul>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="component-name">Actuadores Rotativos</div>
+                            <span class="normative-badge">ISO 6432</span>
+                            <span class="normative-badge">DIN ISO 15552</span>
+                        </td>
+                        <td>
+                            <div class="symbol-container">
+                                <div class="symbol"><img src="rotativos.png" alt=""></div>
+                                <div class="symbol-text">Círculo con flechas de rotación</div>
+                            </div>
+                        </td>
+                        <td class="definition">
+                            Dispositivos que transforman la energía del aire comprimido en movimiento rotacional, limitado a un cierto ángulo (90°, 180°, 360°). Son fundamentales en sistemas donde se necesita giro controlado, como en pinzas, válvulas o brazos mecánicos.
+                            <li><span class="pressure-range">TIPO DE ACCIONAMIENTO</span> Neumático directo. El aire genera movimiento de giro por diseño mecánico interno</li>
+                        </td>
+                        <td>
+                            <ul class="characteristics">
+                                <li><span class="pressure-range">2 a 8 bar</span> presión trabajo</li>
+                                <li>Ángulo de giro: 90°, 180°, 270°, 360° o personalizado</li>
+                                <li>Fuerza de torsión: 1 a 100 Nm (dependiendo del modelo)</li>
+                                <li> Tipos: de paleta, cremallera-piñón, piñón-engranaje</li>
+                                <li>Opciones de amortiguación ajustable</li>
+                                <li>Detección de posición con sensores magnéticos o inductivos</li>
+                                <li>Vida útil alta, sin mantenimiento constante</li>
+                            </ul>
+                        </td>
+                    </tr>
+
+                    <tr>
